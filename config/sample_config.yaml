@@ -1,0 +1,17 @@
+
+genome: 'data/current/genome/GRCm38.primary_assembly.standchr.fa'
+
+fastq_trim_adapters:
+  minimum_overlap: 4 #minimum overlap allowe
+  minimum_fragment_length: 22 #keep fragments longer than this length
+  maximum_error_rate: 0.2 #maximum error rate allowed for adapter searches
+
+bowtie:
+  basename: 'GRCm38' # change "basename" to select a different Bowtie index basename (read more info in the file "readme.info.txt")
+
+fastq_align:
+  cpus: 4 #numer of parallel processes
+  mismatches_allowed: 2 #mismatches allowed in alignments
+  
+bamCoverage:
+  cpus: 4

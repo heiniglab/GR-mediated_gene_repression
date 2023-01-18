@@ -1,0 +1,14 @@
+name: samtools
+channels:
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - bedops==2.4.39=h7d875b9_1
+    - bedtools==2.29.0=hc088bd4_3
+    - bowtie==1.2.3=py37h9a982cc_2
+    - nimnexus==0.1.1=h9d02d08_2
+    - samtools==1.9=h10a08f8_12
+    - tbb==2020.2=h4bd325d_4 #newer version of tbb breaks bowtie
+    - ucsc-liftover==377=ha8a8165_4
+

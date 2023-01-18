@@ -1,0 +1,11 @@
+*.fastq.gz
+*.ebwt
+logs/*
+.snakemake
+tmp/
+!logs/.gitkeep
+src/profiles/slurm/__pycache__/*
+.ipynb_checkpoints
+.Rproj.user
+src/juicer_tools.1.9.9_jcuda.0.8.jar
+juicer_tools.jar

@@ -1,0 +1,211 @@
+__default__:
+  cpus-per-task: 1
+  mem: 500
+  job-name: "{rule}.{wildcards}"
+  time: 60
+  output: "results/current/logs/{rule}.{wildcards}.out"
+  error: "results/current/logs/{rule}.{wildcards}.err"
+
+#---------------------------------------------------------------
+#---  Snakefile
+#---------------------------------------------------------------
+
+#download_JASPAR:
+
+make_bowtie_index:
+  mem: 15000
+  time: 300
+
+#get_reference_files:
+#get_remap_data:
+#gunzip_blacklist:
+#scan_nr3c1_genomewide:
+
+#---------------------------------------------------------------
+#---  Snakefile utils (general rules)
+#---------------------------------------------------------------
+
+#generate_fastqc_report:
+
+sort_raw_BAM_and_blacklist_filter:
+ mem: 10000
+ time: 180
+
+filter_duplicates:
+ mem: 3000
+ time: 180
+
+make_bw_from_bam:
+ mem: 15000
+ time: 300
+ 
+make_forwardbw_from_bam:
+ mem: 15000
+ time: 300
+ 
+make_reversebw_from_bam:
+ mem: 15000
+ time: 300
+ 
+make_RPGC_bw_from_bam:
+ mem: 5000
+ time: 300
+ 
+make_CPM_bw_from_bam:
+ mem: 5000
+ time: 300
+
+#generate_bed_from_idr:
+#sort_narrowPeak_bypval:
+#read_summit_from_IDR_peaks:
+#get_chromsize_from_fa:
+#get_chromsize_bed:
+#create_bed_interval_from_summit:
+#merge_overlapping_bed_interval:
+
+bam_index:
+ mem: 5000
+
+#---------------------------------------------------------------
+#--- Snakefile_ChIPseq
+#---------------------------------------------------------------
+
+#merge_GR2020:
+#symlink_GR2020:
+#symlink_histone:
+
+trim_adapter_sequences:
+  time: 180
+
+multiqc:
+  time: 180
+
+fastq_align:
+  time: 480
+  mem: 20000
+
+PE_fastq_align:
+  time: 540
+  mem: 20000
+
+run_macs2_narrow:
+  mem: 5000
+  time: 120
+
+run_macs2_broad:
+  mem: 5000
+  time: 120
+
+run_macs2_GR2020:
+  mem: 5000
+  time: 240
+
+GRChIP_run_idr_for_replicates:
+  time: 180
+
+merge_BAMs_from_replicates:
+  time: 120
+
+get_adjusted_libsize_atac:
+  mem: 5000
+  time: 120
+
+get_adjusted_libsize_h3k27ac:
+  mem: 5000
+  time: 120
+
+#---------------------------------------------------------------
+#--- Snakefile_integrate_expression
+#---------------------------------------------------------------
+
+run_DE_analysis:
+ mem: 2000
+
+#custom_libnorm:
+
+make_atacdiff:
+ mem: 5000
+ time: 120
+
+make_h3k27acdiff:
+ mem: 5000
+ time: 120
+
+memes_summitregions:
+ time: 780
+ mem: 5000
+ 
+memes_fimo_summitregions:
+ time: 120
+ mem: 5000
+ 
+#deeptools_computematrix_UPvsDOWN_chipseqonly:
+#deeptools_heatmap_UPvsDOWN_chipseqonly_png:
+#deeptools_heatmap_UPvsDOWN_chipseqonly_svg:
+#filter_fimo_for_motif:
+#deeptools_computematrix_at_motifofinterest:
+#deeptools_heatmap_at_motifofinterest:
+
+#---------------------------------------------------------------
+#--- Snakefile_abcmodel
+#---------------------------------------------------------------
+
+#download_BMDM_cage_data:
+
+get_macrophagespecific_tss_from_cage:
+ mem: 5000
+
+#download_juicer_tools:
+
+prep_hiCdata:
+ mem: 5000
+
+compute_powerlaw_fit_from_hic:
+ mem: 5000
+
+#sort_narrowPeak_file:
+#merge_BAM_from_ATACseq:
+#combine_tss_and_summitregions:
+#call_candidate_regions:
+#get_TPM_condition_expression:
+
+quantify_enhancer_activity:
+ mem: 5000
+ time: 300
+
+compute_ABC_scores:
+ mem: 32000
+ time: 300
+ 
+#filter_ABC_scores:
+
+run_fimo_enhancerregions:
+ time: 780
+ mem: 5000
+
+#---------------------------------------------------------------
+#--- Snakefile_figures
+#---------------------------------------------------------------
+
+visualize_DE_results:
+ mem: 5000
+
+#figure_chipseq_prepdata:
+#figure_proxanno_prepdata:
+#figure_chipseq_plot:
+
+figure_proxanno_plot:
+ mem: 5000
+
+abc_visualizations:
+ mem: 5000
+ 
+#abc_predictions_prepdata:
+#abc_predictions:
+#figure_GLMs:
+#figure_supplemental_GLMs
+#compute_tfactivity:
+#figure_tfactivity_etc:
+
+quantify_features_and_label_distribution:
+ mem: 5000

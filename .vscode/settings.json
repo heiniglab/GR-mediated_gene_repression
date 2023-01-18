@@ -1,0 +1,9 @@
+{
+    "r.rpath.linux": "~/miniconda3/envs/nexus_workflow/bin/R",
+    "r.rterm.linux": "~/miniconda3/envs/nexus_workflow/bin/R",
+    "files.watcherExclude": {
+        "**/.snakemake/**": true,
+        "**/.ipynb_checkpoints/**": true,
+        "**/data/**": true
+    }    
+}
