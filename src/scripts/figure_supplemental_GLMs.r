@@ -119,10 +119,15 @@ for (modelname in rownames(AUC_metrics) ) {
 
 all_pairwise_wprox$input_is_summitregion <- grepl("motifcounts_summitregion*",rownames(all_pairwise_wprox))
 
+storey_wprox <- qvalue::qvalue(all_pairwise_wprox$p.values,  lambda=seq(0.05, 0.8, 0.05), fdr.level = 0.05)
+storey_wprox
+print("Pi0 computed by Storey's method for comparison with reference model:")
+print(storey_wprox$pi0)
+
 # plot all p values to estimate where the histogram "levels out" and set this as lambda in Storey's q value
 gg_storey_wprox <-
   ggplot(all_pairwise_wprox)+
-  geom_histogram(aes(p.values,group=input_is_summitregion,fill=input_is_summitregion), bins=20 )+
+  geom_histogram(aes(p.values,group=input_is_summitregion,fill=input_is_summitregion), bins=40 )+
   scale_fill_manual("",
                     labels = c("active regions", "GR summitregions"),
                     breaks = c("FALSE", "TRUE"),
@@ -133,17 +138,11 @@ gg_storey_wprox <-
                       values = c("chocolate4", "purple")) +
   labs(x="p value",
        y="count")+
-  geom_vline(xintercept=0.34) +
   theme(legend.position = c(0.7, 0.8))
 gg_storey_wprox
 
-storey_wprox <- qvalue::qvalue(all_pairwise_wprox$p.values,  lambda=0.34)
-storey_wprox
-print("Pi0 computed by Storey's method for comparison with reference model:")
-print(storey_wprox$pi0)
-
 table(all_pairwise_wprox$p.values<=0.05, all_pairwise_wprox$input_is_summitregion)
-
+table(storey_wprox$significant)
 #-------------------------------------------------------------------------------
 # comparison with best performing model
 #-------------------------------------------------------------------------------
@@ -170,10 +169,16 @@ for (modelname in rownames(AUC_metrics) ) {
 
 all_pairwise_wbest$input_is_summitregion <- grepl("motifcounts_summitregion*",rownames(all_pairwise_wbest))
 
+
+storey_wbest <- qvalue::qvalue(all_pairwise_wbest$p.values,  lambda=seq(0.05, 0.35, 0.05))
+storey_wbest
+print("Pi0 computed by Storey's method for comparison with best model:")
+print(storey_wbest$pi0)
+
 # plot all p values to estimate where the histogram "levels out" and set this as lambda in Storey's q value
 gg_storey_wbest <-
   ggplot(all_pairwise_wbest)+
-  geom_histogram(aes(p.values,group=input_is_summitregion,fill=input_is_summitregion), bins=20 )+
+  geom_histogram(aes(p.values,group=input_is_summitregion,fill=input_is_summitregion), bins=40 )+
   scale_fill_manual("",
                     labels = c("active regions", "GR summitregions"),
                     breaks = c("FALSE", "TRUE"),
@@ -184,17 +189,8 @@ gg_storey_wbest <-
                       values = c("chocolate4", "purple")) +
   labs(x="p value",
        y="count")+
-  geom_vline(xintercept=0.1) +
   theme(legend.position = c(0.7, 0.8))
 gg_storey_wbest
-
-storey_wbest <- qvalue::qvalue(all_pairwise_wbest$p.values,  lambda=0.1)
-storey_wbest
-print("Pi0 computed by Storey's method for comparison with best model:")
-print(storey_wbest$pi0)
-
-table(all_pairwise_wbest$p.values<=0.05)
-
 
 #-------------------------------------------------------------------------------
 # bivariate models with motifs of interest
